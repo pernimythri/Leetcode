@@ -1,0 +1,49 @@
+def rotate_matrix_k_times(matrix, k):
+    # Function to rotate the matrix once by 90 degrees clockwise
+    def rotate_once(mat):
+        n = len(mat)
+        rotated = [[0] * n for _ in range(n)]
+        for i in range(n):
+            for j in range(n):
+                rotated[j][n - 1 - i] = mat[i][j]
+        return rotated
+
+    # We only need to rotate k % 4 times, as rotating 4 times results in the original matrix
+    k = k % 4
+    
+    # Perform the rotations
+    for _ in range(k):
+        matrix = rotate_once(matrix)
+    
+    return matrix
+
+# Input function for the matrix and number of rotations
+def get_user_input():
+    t = int(input("Enter number of test cases: "))
+    
+    for test in range(t):
+        print(f"\nTest case {test + 1}:")
+        
+        # Input matrix size
+        n = int(input("Enter the size of the matrix (n x n): "))
+        
+        # Input the matrix
+        matrix = []
+        print(f"Enter the matrix of size {n} x {n} (row by row):")
+        for i in range(n):
+            row = list(map(int, input().split()))
+            matrix.append(row)
+        
+        # Input the number of rotations
+        k = int(input("Enter the number of 90-degree clockwise rotations: "))
+        
+        # Get the rotated matrix
+        rotated_matrix = rotate_matrix_k_times(matrix, k)
+        
+        # Output the result
+        print("Rotated matrix:")
+        for row in rotated_matrix:
+            print(" ".join(map(str, row)))
+
+# Run the program
+get_user_input()
